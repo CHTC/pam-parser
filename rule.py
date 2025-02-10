@@ -24,10 +24,20 @@ class Rule:
         """
 
         # Check module type and assign it
-        if not (module_type in ['auth', 'account', 'password', 'session']):
+        # The leading dash "-" as explained in CentOS 9 Stream
+        # PAM.CONF(5) man page:
+        # "If the type value from the list above is prepended"
+        # with a - character the PAM library will not log to
+        # the system log if it is not possible to load the
+        # module because it is missing in the system.
+        match_obj = re.match(
+            '^-?(auth|account|password|session)$',
+            module_type
+        )
+        if not match_obj:
             raise Exception(f'Invalid module type "{module_type}"')
         else:
-            self.type = module_type
+            self.type = match_obj[1]
 
         # Assign control flags [success, ignore, default]
         self.controls: list = [None, None, None]
