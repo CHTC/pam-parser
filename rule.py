@@ -25,7 +25,7 @@ class Rule:
 
         # Check module type and assign it
         if not (module_type in ['auth', 'account', 'password', 'session']):
-            raise Exception('Invalid module type')
+            raise Exception(f'Invalid module type "{module_type}"')
         else:
             self.type = module_type
 
