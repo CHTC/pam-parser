@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from parse_functions import *
 import argparse
 
